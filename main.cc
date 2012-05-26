@@ -5,6 +5,7 @@
 #include "ir/value.h"
 #include "assembler.h"
 #include "register_allocator.h"
+#include "inst_lower.h"
 
 typedef long long (*CallType)();
 
@@ -42,8 +43,11 @@ int main() {
   Page *page = new Page(1024 * 16);
   page->makeExecutable();
 
-  Assembler assembler(page);
+  Assembler *assembler = new Assembler(page);
 
+  InstLower lower(assembler);
+  lower.lower(block, &allocator);
+/*
   assembler.mov((uint64_t)42, Assembler::RAX);
   assembler.mov((uint64_t)6, Assembler::RBX);
   assembler.mov(Assembler::RAX, Assembler::RBX);
@@ -54,6 +58,6 @@ int main() {
 
   CallType call = reinterpret_cast<CallType>(page->getData());
   std::cout << "Return value: " << call() << "\n";
-
+*/
   return 0;
 }

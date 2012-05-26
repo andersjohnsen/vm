@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#include "assembler.h"
+
 class RegisterAllocator {
 protected:
   RegisterAllocator(IR::BasicBlock *basicBlock) : basicBlock(basicBlock) {}
